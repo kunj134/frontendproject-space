@@ -1,0 +1,18 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm install
+        - sed -i "s|https://conduit.productionready.io/api|$sub_domain/api|g" src/agent.js
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    # IMPORTANT - Please verify your build output directory
+    baseDirectory: build #because npm run build saves all build artifacs in 'build' directory
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
